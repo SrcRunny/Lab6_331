@@ -3,7 +3,7 @@ import type { AxiosInstance, AxiosResponse } from 'axios'
 import type { EventItem } from '@/type'
 
 const apiClient : AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
+    baseURL: 'http://localhost:8080/',
     withCredentials: false,
     headers:{
         Accept: 'application/json',
@@ -17,6 +17,8 @@ export default{
     },
     getEventById(id: number): Promise<AxiosResponse<EventItem>>{
         return apiClient.get<EventItem>('events/' + id.toString())
-
+    },
+    saveEvent(event: EventItem): Promise<AxiosResponse<EventItem>> {
+        return apiClient.post<EventItem>('/events', event)
     }
 }

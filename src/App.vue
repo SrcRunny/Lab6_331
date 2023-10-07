@@ -16,7 +16,10 @@ const { message } = storeToRefs(store)
         <RouterLink :to="{name:'EventList'}" class="text-back active:text-green-700 focus:text-green-600">Home</RouterLink> |
         <RouterLink :to="{name:'about'}" class="text-back active:text-green-700 focus:text-green-600">About</RouterLink> |
         <RouterLink :to="{name:'organizer' }" class="text-back active:text-green-700 focus:text-green-600">Organizer</RouterLink> |
-        <RouterLink :to="{name:'Student'}" class="text-back active:text-green-700 focus:text-green-600">Student</RouterLink>
+        <RouterLink :to="{name:'Student'}" class="text-back active:text-green-700 focus:text-green-600">Student</RouterLink> |
+        <RouterLink :to="{name:'add-event'}" class="text-back active:text-green-700 focus:text-green-600">New Event</RouterLink> | 
+        <RouterLink :to="{name:'add-organizer'}" class="text-back active:text-green-700 focus:text-green-600">New Organizer</RouterLink> | 
+
 
       </nav>
   </header>

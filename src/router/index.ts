@@ -12,6 +12,8 @@ import NetworkErrorView from '@/views/NetworkErrorView.vue'
 import NProgress from 'nprogress'
 import EventService from '@/services/EventService'
 import { useEventStore } from '@/stores/event'
+import AddEventView from '../views/EventFormView.vue'
+import AddOrganizerView from '../views/OrganizerFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,12 +32,23 @@ const router = createRouter({
     {
       path: '/organizer',
       name: 'organizer',
-      component: OrganizerList 
+      component: OrganizerList,
+      props: (route) => ({page: parseInt(route.query?.page as string || '1' )})
     },
     {
       path: '/student',
       name: 'Student',
       component: StudentView 
+    },
+    {
+      path: '/add-event',
+      name: 'add-event',
+      component: AddEventView 
+    },
+    {
+      path: '/add-organizer',
+      name: 'add-organizer',
+      component: AddOrganizerView 
     },
     {
       path: '/event/:id',
