@@ -4,6 +4,9 @@
     <div class="event-card">
       <span>@{{ event?.time }} on {{ event?.date }}</span>
       <h4>{{ event?.title }}</h4>
+      <span>by</span>
+      <h5>{{event?.organizer.name}}</h5>
+
     </div>
   </div>
  </RouterLink>
@@ -24,6 +27,8 @@
 //   organizer: 'kat Laydee'
 // })
 import type { EventItem } from '@/type'
+import type { OrganizerItem } from '@/organizer'
+
 import type { PropType } from 'vue'
 const props = defineProps({
     event: {
