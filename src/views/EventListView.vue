@@ -9,9 +9,13 @@ import EventService from '@/services/EventService'
 import NProgress from 'nprogress'
 import type { AxiosResponse } from 'axios'
 import { useRouter } from 'vue-router'
+import BaseInput from '../components/BaseInput.vue'
+
 
 const events: Ref<EventItem[]> = ref([])
 const router = useRouter()
+
+const keyword = ref('')
 
 const totalEvent = ref<number>(0)
 const perPage = ref<number>(2)
@@ -22,12 +26,9 @@ const props = defineProps({
   }
 })
 
-// EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>) => {
-//   events.value = response.data
-//   console.log(events.value)
-// })
 
-EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>) => {
+EventService.getEvent(3, props.page)
+.then((response: AxiosResponse<EventItem[]>) => {
   events.value = response.data
   totalEvent.value = response.headers['x-total-count']
 }).catch(() => {
@@ -36,7 +37,14 @@ EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>)
 
 onBeforeRouteUpdate((to, from, next) => {
   const toPage = Number(to.query.page)
-  EventService.getEvent(3, toPage).then((response: AxiosResponse<EventItem[]>) => {
+  	let queryFunction;
+  	if (keyword.value === null || keyword.value === '') {
+	    	queryFunction = EventService.getEvent(3, toPage)
+	}else{
+    		queryFunction = EventService.getEventsByKeyword(keyword.value, 3, toPage)
+  	}   
+    queryFunction
+  .then((response: AxiosResponse<EventItem[]>) => {
     events.value = response.data
     totalEvent.value = response.headers['x-total-count']
     next()
@@ -46,16 +54,42 @@ onBeforeRouteUpdate((to, from, next) => {
 })
 
 const hasNextPage = computed(()=>{
-  // first calculate the total page
   const totalPages = Math.ceil(totalEvent.value / 3)
   return props.page.valueOf() < totalPages
 })
+
+function updateKeyword (value: string) {
+  let queryFunction;
+  if (keyword.value === ''){
+    queryFunction = EventService.getEvent(3, 1)
+  }else {
+    queryFunction = EventService.getEventsByKeyword(keyword.value, 3, 1)
+  }
+  queryFunction
+  .then((response: AxiosResponse<EventItem[]>) => {
+    events.value = response.data
+    console.log('events',events.value)
+    totalEvent.value = response.headers['x-total-count']
+    console.log('totalEvent',totalEvent.value)
+  }).catch(() => {
+    router.push({ name: 'NetworkError' })
+  })
+}
 
 </script>
 
 <template>
   <h1 class="text-center text-3xl font-bold mb-4">Events for Good</h1>
   <main class="flex flex-col items-center">
+    <div class="w-64">
+      <BaseInput
+        v-model="keyword"
+        type="text"
+        label="Search..."
+        @input="updateKeyword"
+      />      
+    </div>
+
     <EventCard
       v-for="event in events"
       :key="event.id"

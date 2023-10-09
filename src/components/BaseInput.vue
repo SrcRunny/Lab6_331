@@ -4,7 +4,7 @@
       class="field"
       :placeholder="label"
       :value="modelValue"
-      @input="emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
+      @input="updateValue($event)"
       v-bind="$attrs"
     />
   </template>
@@ -21,6 +21,11 @@
           require: false,
           default: ''
       }
-  });
+  })
+
+  function updateValue(event: Event) {
+    emit('update:modelValue', (event.target as HTMLInputElement)?.value)
+    }
+
   </script>
   
