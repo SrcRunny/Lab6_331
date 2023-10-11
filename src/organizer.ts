@@ -7,5 +7,6 @@ export interface OrganizerItem{
     date: string
     time: string
     organizer: string
+    images: string[]
     petsAllowed: boolean
 }

@@ -25,9 +25,10 @@
            label="Location"
            />
            <h3>Who is your organizer?</h3>
-
            <BaseSelect v-model="event.organizer.id" label="Organizer"                    
                  :options="organizers" />
+                 <h3>The image of the Event</h3>
+                 <ImageUpload v-model="event.images"/>
            <button type="submit">Submit</button>
 
       </form>
@@ -45,6 +46,7 @@ import BaseInput from '../components/BaseInput.vue'
 import { type EventOrganizer } from '@/type'
 import OrganizerService from '@/services/OrganizerService'
 import BaseSelect from '../components/BaseSelect.vue'
+import ImageUpload from '@/components/ImageUpload.vue'
 
 const store = useMessageStore();
 
@@ -57,6 +59,7 @@ const store = useMessageStore();
     date: '',
     time: '',
     organizer: {id: 0, name: ''},
+    images: [],
     petsAllowed: true
   });
   

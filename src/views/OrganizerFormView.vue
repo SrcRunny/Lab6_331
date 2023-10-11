@@ -15,7 +15,8 @@
         <h3>Where is your organizer?</h3>
         <label>Location</label>
         <input v-model="organizer.location" type="text" placeholder="Location" class="field" />
-  
+        <h3>The image of the Organizer</h3>
+                 <ImageUpload v-model="organizer.images"/>
         <button type="submit">Submit</button>
       </form>
   
@@ -29,6 +30,10 @@
   import OrganizerService from '@/services/OrganizerService';
   import { useRouter } from 'vue-router'
   import { useMessageStore } from '@/stores/message';
+  import ImageUpload from '@/components/ImageUpload.vue'
+  import BaseInput from '../components/BaseInput.vue'
+    
+
 
   const store = useMessageStore();
   const organizer = ref<OrganizerItem>({
@@ -40,6 +45,7 @@
     date: '',
     time: '',
     organizer: '',
+    images: [],
     petsAllowed: true
   });
 
