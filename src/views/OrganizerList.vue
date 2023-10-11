@@ -23,10 +23,6 @@ const props = defineProps({
   }
 })
 
-// EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>) => {
-//   events.value = response.data
-//   console.log(events.value)
-// })
 
 OrganizerService.getOrganizer(3, props.page).then((response: AxiosResponse<OrganizerItem[]>) => {
   events.value = response.data
@@ -84,7 +80,6 @@ const hasNextPage = computed(()=>{
     </div>
   </main>
 </template>
-
 <!-- <style scoped>
 .events{
   display: flex;
