@@ -3,4 +3,4 @@ services:
     web:
         image: "runnydoggy/se331-lab06:latest"
         ports:
-            - 3004:80
+            - 8001:80
