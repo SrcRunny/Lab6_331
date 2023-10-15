@@ -58,7 +58,7 @@ const store = useMessageStore();
     location: '',
     date: '',
     time: '',
-    organizer: {id: 0, name: ''},
+    organizer: {id: 0, name: '', roles: [] , images:[]},
     images: [],
     petsAllowed: true
   });

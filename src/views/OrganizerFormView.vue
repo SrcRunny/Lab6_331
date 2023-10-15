@@ -2,21 +2,11 @@
     <div>
       <h1>Create an organizer</h1>
       <form @submit.prevent="saveOrganizer">
-        <label>Category</label>
-        <input v-model="organizer.category" type="text" placeholder="Category" class="field" />
+        <label>NAME</label>
+        <input v-model="organizer.name" type="text" placeholder="name" class="field" />
   
-        <h3>Name & describe your organizer</h3>
-        <label>Title</label>
-        <input v-model="organizer.title" type="text" placeholder="Title" class="field" />
-  
-        <label>Description</label>
-        <input v-model="organizer.description" type="text" placeholder="Description" class="field" />
-  
-        <h3>Where is your organizer?</h3>
-        <label>Location</label>
-        <input v-model="organizer.location" type="text" placeholder="Location" class="field" />
         <h3>The image of the Organizer</h3>
-                 <ImageUpload v-model="organizer.images"/>
+                 <ImageUpload v-model="organizer.images" max="1"/>
         <button type="submit">Submit</button>
       </form>
   
@@ -32,21 +22,16 @@
   import { useMessageStore } from '@/stores/message';
   import ImageUpload from '@/components/ImageUpload.vue'
   import BaseInput from '../components/BaseInput.vue'
+import type { EventOrganizer } from '@/type';
     
 
 
   const store = useMessageStore();
-  const organizer = ref<OrganizerItem>({
+  const organizer = ref<EventOrganizer>({
     id: 0,
-    category: '',
-    title: '',
-    description: '',
-    location: '',
-    date: '',
-    time: '',
-    organizer: '',
-    images: [],
-    petsAllowed: true
+    name: '',
+    roles: [],
+    images: []
   });
 
   const router = useRouter();
@@ -58,7 +43,7 @@
                 name: 'organizer',
                 params: { id: response.data.id }
             });
-            store.updateMessage('You have successfully added a new event for ' + response.data.title);
+            store.updateMessage('You have successfully added a new event for ' + response.data.name);
                setTimeout(() => {
             store.resetMessage();
             }, 3000);

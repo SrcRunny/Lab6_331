@@ -15,5 +15,6 @@ export interface EventOrganizer{
       id: number
       name: string
       roles: string[]
+      images: string[]
     }
     
