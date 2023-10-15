@@ -10,8 +10,9 @@ import OrganizerService from '@/services/OrganizerService'
 import NProgress from 'nprogress'
 import type { AxiosResponse } from 'axios'
 import { useRouter } from 'vue-router'
+import type { EventOrganizer } from '@/type'
 
-const events: Ref<OrganizerItem[]> = ref([])
+const events: Ref<EventOrganizer[]> = ref([])
 const router = useRouter()
 
 const totalEvent = ref<number>(0)
@@ -24,7 +25,7 @@ const props = defineProps({
 })
 
 
-OrganizerService.getOrganizer(3, props.page).then((response: AxiosResponse<OrganizerItem[]>) => {
+OrganizerService.getOrganizer(3, props.page).then((response: AxiosResponse<EventOrganizer[]>) => {
   events.value = response.data
   totalEvent.value = response.headers['x-total-count']
 }).catch(() => {
@@ -33,7 +34,7 @@ OrganizerService.getOrganizer(3, props.page).then((response: AxiosResponse<Organ
 
 onBeforeRouteUpdate((to, from, next) => {
   const toPage = Number(to.query.page)
-  OrganizerService.getOrganizer(3, toPage).then((response: AxiosResponse<OrganizerItem[]>) => {
+  OrganizerService.getOrganizer(3, toPage).then((response: AxiosResponse<EventOrganizer[]>) => {
     events.value = response.data
     totalEvent.value = response.headers['x-total-count']
     next()
@@ -53,9 +54,9 @@ const hasNextPage = computed(()=>{
   <h1 class="text-center text-3xl font-bold mb-4">Organizers for Good</h1>
   <main class="flex flex-col items-center">
     <OrganizerCard
-      v-for="event in events"
-      :key="event.id"
-      :event="event"
+      v-for="organizer in events"
+      :key="organizer.id"
+      :organizer="organizer"
       class="mb-4"
     ></OrganizerCard>
     <div class="flex w-290 pagination mt-4">

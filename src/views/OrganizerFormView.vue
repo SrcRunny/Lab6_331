@@ -16,12 +16,10 @@
   
 <script setup lang="ts">
   import { ref } from 'vue';
-  import type { OrganizerItem } from '@/organizer';
   import OrganizerService from '@/services/OrganizerService';
   import { useRouter } from 'vue-router'
   import { useMessageStore } from '@/stores/message';
   import ImageUpload from '@/components/ImageUpload.vue'
-  import BaseInput from '../components/BaseInput.vue'
 import type { EventOrganizer } from '@/type';
     
 
@@ -106,7 +104,6 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: none;
 }
 button::-moz-focus-inner,
 [type='button']::-moz-focus-inner,
@@ -153,7 +150,6 @@ textarea {
   height: auto;
 }
 [type='search'] {
-  -webkit-appearance: textfield;
   outline-offset: -2px;
 }
 [type='search']::-webkit-search-decoration {
